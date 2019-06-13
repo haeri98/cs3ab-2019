@@ -10,10 +10,10 @@
 	</parent>
 	<groupId>idu.cs</groupId>
 	<artifactId>boot-thymeleaf</artifactId>
-	<version>1.0</version>
+	<version>.0</version>
 	<packaging>war</packaging>
 	<name>boot-thymeleaf</name>
-	<description>Haeri's Question and Answer Board</description>
+	<description>Haeri Question and Answer Board</description>
 
 	<properties>
 		<java.version>1.8</java.version>
