@@ -69,21 +69,30 @@ public class QuerstionController {
 		model.addAttribute("question", question);
 		return "/questions/info";
 	}
-	@PutMapping("/{id}/edit")
-	public String updateQuestionById(@PathVariable(value = "id") Long id, String title, String contents, Model model, HttpSession session) {
+	@GetMapping("/{id}/edit")
+	public String editQuestionById(@PathVariable(value = "id") Long id, Model model, HttpSession session) {
 		User writer = (User) session.getAttribute("user");
 		if(HttpSessionUtils.isLogined(writer))
 				return "redirect:/users/login-form";
-		model.addAttribute("writer", writer);
 		Question question = questionService.getQuestionById(id);
+		model.addAttribute("writer", writer);
 		model.addAttribute("question", question);
 		return "/questions/edit";
+	}
+	@RequestMapping(value = "/{id}/edit", method = RequestMethod.POST)
+	public String updateQuestionById(@PathVariable(value = "id") Long id, Question formQuestion, Model model, HttpSession session) {
+		Question question = questionService.getQuestionById(id);
+		question.setTitle(formQuestion.getTitle());
+		question.setContents(formQuestion.getContents());
+		questionService.updateQuestion(question);
+		model.addAttribute("question", question);
+		return "redirect:/questions";
 	}
 	@DeleteMapping("/{id}")
 	public String deleteQuestionById(@PathVariable(value = "id") Long id, Model model) {
 		Question question = questionService.getQuestionById(id);
 		questionService.deleteQuestion(question);
 		model.addAttribute("userId", question.getWriter().getUserId());
-		return "/questions";
+		return "redirect:/questions";
 	}
 }
