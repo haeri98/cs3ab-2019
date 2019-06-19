@@ -77,6 +77,6 @@ public class QuerstionController {
 		Question question = questionService.getQuestionById(id);
 		questionService.deleteQuestion(question);
 		model.addAttribute("userId", question.getWriter().getUserId());
-		return "/questions/withdrawal";
+		return "/questions";
 	}
 }

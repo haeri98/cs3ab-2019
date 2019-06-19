@@ -40,18 +40,10 @@
                         <li><a href="#"><i class="far fa-clock"></i> <span th:text="${#temporals.format(question.createTime, 'yyyy년 MM월 dd일 HH:mm')}"></span></a></li>
                         <li><a href="#comment-area"><i class="far fa-comments"></i> 03 Comments</a></li>
                         <li th:if="${same}"><a href="/question/edit"><i class="fa fa-edit"></i> EDIT</a></li>
+                        <li th:if="${same}"><form th:action="@{'/questions/{id}'(id=${id})}" th:method="delete">
+                        	<button type="submit" class="button button-contactForm btn_4 btn-sm"> 삭제</button>
+                        </form></li>
                      </ul>
-                     <div class="quote-wrapper">
-                        <div class="quotes" th:text="${question.contents}">
-                           
-                        </div>
-                     </div>
-                     <p>
-                        MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-                        should have to spend money on boot camp when you can get the MCSE study materials yourself at a
-                        fraction of the camp price. However, who has the willpower to actually sit through a
-                        self-imposed MCSE training. who has the willpower to actually
-                     </p>
                   </div>
                </div>
                <div class="navigation-top">
@@ -125,7 +117,7 @@
                </div>
                <div class="comments-area">
                   <h4><a name="comment-area"></a>05 Comments</h4>
-                  <div class="comment-list">
+                  <div class="comment-list" th:each="answer : ${question.answers}">
                      <div class="single-comment justify-content-between d-flex">
                         <div class="user justify-content-between d-flex">
                            <div class="thumb">
@@ -133,15 +125,14 @@
                            </div>
                            <div class="desc">
                               <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
+                                 <span th:text="${answer.contents}"></span>
                               </p>
                               <div class="d-flex justify-content-between">
                                  <div class="d-flex align-items-center">
                                     <h5>
-                                       <a href="#">Emilly Blunt</a>
+                                       <a href="#"><span th:text="${answer.writer.userId}"></span></a>
                                     </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
+                                    <p class="date"><span th:text="${#temporals.format(answer.createTime, 'yy년 MM월 dd일 HH:mm')}"></span></p>
                                  </div>
                                  <div class="reply-btn">
                                     <a href="#" class="btn-reply text-uppercase">reply</a>
@@ -150,88 +141,21 @@
                            </div>
                         </div>
                      </div>
-                  </div>
-                  <div class="comment-list">
-                     <div class="single-comment justify-content-between d-flex">
-                        <div class="user justify-content-between d-flex">
-                           <div class="thumb">
-                              <img src="/img/comment/comment_2.png" alt="">
-                           </div>
-                           <div class="desc">
-                              <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                              </p>
-                              <div class="d-flex justify-content-between">
-                                 <div class="d-flex align-items-center">
-                                    <h5>
-                                       <a href="#">Emilly Blunt</a>
-                                    </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                 </div>
-                                 <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="comment-list">
-                     <div class="single-comment justify-content-between d-flex">
-                        <div class="user justify-content-between d-flex">
-                           <div class="thumb">
-                              <img src="/img/comment/comment_3.png" alt="">
-                           </div>
-                           <div class="desc">
-                              <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                              </p>
-                              <div class="d-flex justify-content-between">
-                                 <div class="d-flex align-items-center">
-                                    <h5>
-                                       <a href="#">Emilly Blunt</a>
-                                    </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                 </div>
-                                 <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+                  </div>                  
                </div>
                <div class="comment-form">
                   <h4>Leave a Reply</h4>
-                  <form class="form-contact comment_form" action="#" id="commentForm">
+                  <form class="form-contact comment_form" th:action="@{'/questions/{id}/answers'(id=${question.id})}" method="post" id="commentForm">
                      <div class="row">
                         <div class="col-12">
                            <div class="form-group">
-                              <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                              <textarea class="form-control w-100" name="contents" id="contents" cols="30" rows="5"
                                  placeholder="Write Comment"></textarea>
                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="form-group">
-                              <input class="form-control" name="name" id="name" type="text" placeholder="Name">
-                           </div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="form-group">
-                              <input class="form-control" name="email" id="email" type="email" placeholder="Email">
-                           </div>
-                        </div>
-                        <div class="col-12">
-                           <div class="form-group">
-                              <input class="form-control" name="website" id="website" type="text" placeholder="Website">
-                           </div>
-                        </div>
+                        </div>                        
                      </div>
                      <div class="form-group">
-                        <button type="submit" class="button button-contactForm">Send Message</button>
+                        <button type="submit" class="button button-contactForm">REPLY</button>
                      </div>
                   </form>
                </div>

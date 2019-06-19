@@ -1,21 +1,19 @@
 package iducs.springboot.board.domain;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class Question {
+public class Answer {
 	private long id; // primary key
-	private String title; 
-	private User writer;
-	private List<Answer> answers;
+	private User writer; // 글 작성자
+	private Question question; // 
 	private String contents;
 	private LocalDateTime createTime;	
 	
-	public Question() {}
-	public Question(String title, User writer, String contents) {
+	public Answer() {}
+	public Answer(User writer, Question question, String contents) {
 		super();
-		this.title = title;
 		this.writer = writer;
+		this.question = question;
 		this.contents = contents;
 		this.createTime = LocalDateTime.now();
 	}
@@ -23,19 +21,11 @@ public class Question {
 	public long getId() {
 		return id;
 	}
-
+	
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
+	
 	public User getWriter() {
 		return writer;
 	}
@@ -44,20 +34,19 @@ public class Question {
 		this.writer = writer;
 	}
 
+	public Question getQuestion() {
+		return question;
+	}
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+	
 	public String getContents() {
 		return contents;
 	}
 
 	public void setContents(String contents) {
 		this.contents = contents;
-	}
-	
-	public List<Answer> getAnswers() {
-		return answers;
-	}
-	
-	public void setAnswers(List<Answer> answers) {
-		this.answers = answers;
 	}
 
 	public LocalDateTime getCreateTime() {
@@ -67,5 +56,10 @@ public class Question {
 	public void setCreateTime(LocalDateTime createTime) {
 		this.createTime = createTime;
 	}
-	
+
+	public boolean isSameUser(User user, User writer) {
+		if(user.equals(writer))
+			return true;
+		return false;
+	}
 }
