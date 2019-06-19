@@ -72,7 +72,7 @@ public class UserController {
 	public String deleteUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model) {
 		userService.deleteUser(formUser);
 		model.addAttribute("name", formUser.getName());
-		return "/users/withdrawal";
+		return "/users";
 	}
 	
 	/*

@@ -39,7 +39,7 @@
                      	<li><a href="#"><i class="far fa-user"></i> <span th:text="${question.writer.userId}"></span></a></li>
                         <li><a href="#"><i class="far fa-clock"></i> <span th:text="${#temporals.format(question.createTime, 'yyyy년 MM월 dd일 HH:mm')}"></span></a></li>
                         <li><a href="#comment-area"><i class="far fa-comments"></i> 03 Comments</a></li>
-                        <li th:if="${same}"><a href="/question/edit"><i class="fa fa-edit"></i> EDIT</a></li>
+                        <li th:if="${same}"><a th:href="@{'/questions/{id}/edit'(id=${question.id})}"><i class="far fa-edit"></i> Edit</a></li>
                         <li th:if="${same}"><form th:action="@{'/questions/{id}'(id=${id})}" th:method="delete">
                         	<button type="submit" class="button button-contactForm btn_4 btn-sm"> 삭제</button>
                         </form></li>
@@ -136,6 +136,9 @@
                                  </div>
                                  <div class="reply-btn">
                                     <a href="#" class="btn-reply text-uppercase">reply</a>
+                                    <form th:action="@{'/answer/{id}'(id=${id})}" th:method="delete">
+                        				<button type="submit" class="button button-contactForm btn_4 btn-sm"> 삭제</button>
+                        			</form>
                                  </div>
                               </div>
                            </div>

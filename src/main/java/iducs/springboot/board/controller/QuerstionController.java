@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
@@ -25,6 +26,8 @@ import iducs.springboot.board.exception.ResourceNotFoundException;
 import iducs.springboot.board.repository.UserRepository;
 import iducs.springboot.board.service.QuestionService;
 import iducs.springboot.board.service.UserService;
+import iducs.springboot.board.util.HttpSessionUtils;
+import iducs.springboot.board.util.PageRequest;
 
 @Controller
 @RequestMapping("/questions")
@@ -66,11 +69,15 @@ public class QuerstionController {
 		model.addAttribute("question", question);
 		return "/questions/info";
 	}
-	@PutMapping("/{id}")
-	public String updateQuestionById(@PathVariable(value = "id") Long id, String title, String contents, Model model) {
+	@PutMapping("/{id}/edit")
+	public String updateQuestionById(@PathVariable(value = "id") Long id, String title, String contents, Model model, HttpSession session) {
+		User writer = (User) session.getAttribute("user");
+		if(HttpSessionUtils.isLogined(writer))
+				return "redirect:/users/login-form";
+		model.addAttribute("writer", writer);
 		Question question = questionService.getQuestionById(id);
-		questionService.updateQuestion(question);		
-		return "redirect:/questions/" + id;
+		model.addAttribute("question", question);
+		return "/questions/edit";
 	}
 	@DeleteMapping("/{id}")
 	public String deleteQuestionById(@PathVariable(value = "id") Long id, Model model) {

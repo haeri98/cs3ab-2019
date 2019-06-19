@@ -42,7 +42,7 @@ public class QuestionServiceImpl implements QuestionService {
 		 * 2. 
 		 */
 		List<QuestionEntity> entities = repository.findAll(new Sort(Sort.Direction.DESC, "createTime"));
-		
+														// new Sort(Sort.Direction.ASC,"writer");
 		List<Question> questions = new ArrayList<Question>();
 		for(QuestionEntity entity : entities) {
 			Question question = entity.buildDomain();
