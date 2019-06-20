@@ -45,6 +45,14 @@ public class UserController {
 		return "/users/list";
 		}
 	}	
+	/* page + httpSession
+	 * @GetMapping("")
+	public String getUsers(Model model, HttpSession session, Long pageNo) { //@PathVariable(value = "pageNo") Long pageNo) {
+		System.out.println(pageNo);
+		model.addAttribute("users", userService.getUsers(pageNo));
+		return "/users/list";
+	}	
+	 */
 	@GetMapping("/{id}")
 	public String getUserById(@PathVariable(value = "id") Long id, Model model,  HttpSession session) {
 		User sessionUser = (User) session.getAttribute("user");
