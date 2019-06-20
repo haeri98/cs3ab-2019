@@ -36,6 +36,28 @@ public class UserServiceImpl implements UserService {
 			return null;
 		return userEntity.buildDomain();
 	}
+	/*
+	 public List<User> getUsers(PageRequest pageRequest) {
+		List<User> users = new ArrayList<User>();
+		Page<UserEntity> entities = repository.findAll(pageRequest);
+		for(UserEntity entity : entities) {
+			User user = entity.buildDomain();
+			users.add(user);
+		}
+		return users;
+	}
+	@Override
+	public List<User> getUsers(Long pageNo) {
+		PageRequest pageRequest = PageRequest.of((int) (pageNo - 1), 3, new Sort(Sort.Direction.DESC, "id"));
+		Page<UserEntity> entities = repository.findAll(pageRequest);
+		List<User> users = new ArrayList<User>();
+		for(UserEntity entity : entities) {
+			User user = entity.buildDomain();
+			users.add(user);
+		}
+		return users;
+	}
+	 */
 
 	@Override
 	public List<User> getUsers() {
