@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import iducs.springboot.board.domain.Answer;
-import iducs.springboot.board.domain.Question;
+import iducs.springboot.board.domain.Board;
 import iducs.springboot.board.entity.AnswerEntity;
-import iducs.springboot.board.entity.QuestionEntity;
+import iducs.springboot.board.entity.BoardEntity;
 import iducs.springboot.board.repository.AnswerRepository;
 
 @Service("answerService")

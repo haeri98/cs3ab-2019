@@ -1,5 +1,7 @@
 package iducs.springboot.board.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -9,25 +11,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import iducs.springboot.board.domain.Board;
 import iducs.springboot.board.domain.User;
+import iducs.springboot.board.service.BoardService;
 import iducs.springboot.board.service.UserService;
 import iducs.springboot.board.util.HttpSessionUtils;
 
 @Controller
 public class HomeController {
-	
+	@Autowired BoardService questionService;
 	@Autowired UserService userService; // 의존성 주입(Dependency Injection) : 
 	
 	@GetMapping("/initdb") 
 	public String initialize() {
-		for(int i = 1;i <= 10; i++)
-			userService.saveUser(new User("u" + i, "p" + i, "name" + i, "contact" + i));	
+		for(int i = 01;i <= 10; i++)
+			userService.saveUser(new User("b" + i, "p" + i, "name" + i, "contact" + i));	
 		return "index";
 	}
+
 	@GetMapping("/")
 	public String home() {		
 		return "index";
 	}
+	
+	@GetMapping("")
+	public String getAllUser(Model model, HttpSession session) {
+		List<Board> questions = questionService.getQuestions();
+		model.addAttribute("questions", questions);
+		return "/questions/list"; 
+	}
+	
 	@GetMapping("/questions/form") // 등록폼은 form URL을 가지도록 규칙화하겠음
 	public String questionForm(HttpSession session, Model model) {
 		User writer = (User) session.getAttribute("user");
@@ -54,7 +67,7 @@ public class HomeController {
 			return "redirect:/users/login-form";
 		}
 		session.setAttribute("user", sessionUser);
-		return "redirect:/";
+		return "redirect:/questions";
 	}	
 	
 	@GetMapping("/users/form") // 등록폼은 form URL을 가지도록 함, 다른 폼은 이름을 명명하기로 수정함

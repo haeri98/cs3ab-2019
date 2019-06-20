@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 import iducs.springboot.board.domain.Answer;
-import iducs.springboot.board.domain.Question;
+import iducs.springboot.board.domain.Board;
 import iducs.springboot.board.domain.User;
 import iducs.springboot.board.exception.ResourceNotFoundException;
 import iducs.springboot.board.repository.UserRepository;
 import iducs.springboot.board.service.AnswerService;
-import iducs.springboot.board.service.QuestionService;
+import iducs.springboot.board.service.BoardService;
 import iducs.springboot.board.service.UserService;
 import iducs.springboot.board.util.HttpSessionUtils;
 
@@ -31,7 +31,7 @@ import iducs.springboot.board.util.HttpSessionUtils;
 @RequestMapping("/questions/{questionId}/answers")
 public class AnswerController {
 	@Autowired AnswerService answerService; // 의존성 주입(Dependency Injection) 
-	@Autowired QuestionService questionService;
+	@Autowired BoardService questionService;
 		
 	@PostMapping("")
 	// public String createUser(Answer answer, Model model, HttpSession session) {
@@ -40,7 +40,7 @@ public class AnswerController {
 		User sessionUser = (User) session.getAttribute("user");
 		//
 		System.out.println("답글내용?  :" + contents);
-		Question question = questionService.getQuestionById(questionId);
+		Board question = questionService.getQuestionById(questionId);
 		Answer newAnswer = new Answer(sessionUser, question, contents);
 		answerService.saveAnswer(newAnswer);
 		return String.format("redirect:/questions/%d", questionId);
@@ -65,7 +65,7 @@ public class AnswerController {
 			@PathVariable(value = "questionId") Long questionId,Model model) {
 		
 		Answer answer = answerService.getAnswerById(answerId);
-		Question question = new Question();
+		Board question = new Board();
 		question.setId(questionId);
 		model.addAttribute("answer",answer);
 		model.addAttribute("question",question);

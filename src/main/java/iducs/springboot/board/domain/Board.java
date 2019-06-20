@@ -3,7 +3,7 @@ package iducs.springboot.board.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Question {
+public class Board {
 	private long id; // primary key
 	private String title; 
 	private User writer;
@@ -11,8 +11,8 @@ public class Question {
 	private String contents;
 	private LocalDateTime createTime;	
 	
-	public Question() {}
-	public Question(String title, User writer, String contents) {
+	public Board() {}
+	public Board(String title, User writer, String contents) {
 		super();
 		this.title = title;
 		this.writer = writer;

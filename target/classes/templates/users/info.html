@@ -53,6 +53,9 @@
 				              	회원정보수정</button>
 				            </div>
 						</form>
+						<form th:action="@{'/users/{id}'(id=${user.id})}" th:method="delete">
+						<button type="submit" class="button button-contactForm btn_4">회원 탈퇴</button>
+				        </form>
 					</div>
 					<div class="col-lg-2 col-md-2 mt-sm-30">
 					</div>
