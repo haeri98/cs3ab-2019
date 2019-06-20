@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class BoardEntity {
 	@JoinColumn(name="fk_question_writer")
 	private UserEntity writer;	
 	
-	@OneToMany(mappedBy="question")
+	@OneToMany(mappedBy="question", cascade=CascadeType.REMOVE, orphanRemoval = true)
 	@OrderBy("createTime DESC")
 	private List<AnswerEntity> answers = new ArrayList<AnswerEntity>();
 
