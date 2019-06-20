@@ -39,16 +39,11 @@
                      	<li><a href="#"><i class="far fa-user"></i> <span th:text="${question.writer.userId}"></span></a></li>
                         <li><a href="#"><i class="far fa-clock"></i> <span th:text="${#temporals.format(question.createTime, 'yyyy년 MM월 dd일 HH:mm')}"></span></a></li>
                         <li><a href="#comment-area"><i class="far fa-comments"></i> 03 Comments</a></li>
-                     	<li th:if="${same}"><a th:href="@{'/questions/{id}/edit'(id=${question.id})}"><i class="far fa-edit"></i> Edit</a></li>
-						<li th:if="${same}"><form th:action="@{'/questions/{id}'(id=${id})}" th:method="delete">
-							<button type="submit" class="genric-btn primary small">삭제</button>
-						</form></li>
+                        <li th:if="${same}"><a th:href="@{'/questions/{id}/edit'(id=${question.id})}"><i class="far fa-edit"></i> Edit</a></li>
+                        <li th:if="${same}"><form th:action="@{'/questions/{id}'(id=${id})}" th:method="delete">
+                        	<button type="submit" class="button button-contactForm btn_4 btn-sm"> 삭제</button>
+                        </form></li>
                      </ul>
-                     <div class="quote-wrapper">
-                        <div class="quotes" th:text="${question.contents}">
-                           
-                        </div>
-                     </div>
                   </div>
                </div>
                <div class="navigation-top">
@@ -140,11 +135,15 @@
                                     <p class="date"><span th:text="${#temporals.format(answer.createTime, 'yy년 MM월 dd일 HH:mm')}"></span></p>
                                  </div>
                                  <div class="reply-btn">
-                                    <a th:href="@{'/questions/{id}/answers/{id1}'(id=${id}, id1=${answer.id})}" th:method="get" class="btn-reply text-uppercase">reply</a>
-                                 </div>
-                                 <form th:action="@{'/questions/{id}/answers/{id1}'(id=${id}, id1=${answer.id})}" th:method="delete">
-                        				<button type="submit" class="genric-btn primary small"> 삭제</button>
+                                    <form th:action="@{'/questions/{id}/answers/{answer_id}'(id=${id},answer_id=${answer.id})}" th:method="get">
+                        				<button type="submit" class="button button-contactForm btn_4 btn-sm"> 수정</button>
                         			</form>
+                                 </div>
+                                 <div class="reply-btn">
+                                    <form th:action="@{'/questions/{id}/answers/{answer_id}'(id=${id},answer_id=${answer.id})}" th:method="delete">
+                        				<button type="submit" class="button button-contactForm btn_4 btn-sm"> 삭제</button>
+                        			</form>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -153,7 +152,7 @@
                </div>
                <div class="comment-form">
                   <h4>Leave a Reply</h4>
-                  <form class="form-contact comment_form" th:action="@{'/questions/{id}/answers/{id1}'(id=${question.id}, id1=${answer.id})}" method="post" id="commentForm">
+                  <form class="form-contact comment_form" th:action="@{'/questions/{id}/answers'(id=${question.id})}" method="post" id="commentForm">
                      <div class="row">
                         <div class="col-12">
                            <div class="form-group">

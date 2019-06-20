@@ -1,12 +1,15 @@
 package iducs.springboot.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import iducs.springboot.board.domain.Answer;
+import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.entity.AnswerEntity;
+import iducs.springboot.board.entity.QuestionEntity;
 import iducs.springboot.board.repository.AnswerRepository;
 
 @Service("answerService")
@@ -16,8 +19,10 @@ public class AnswerServiceImpl implements AnswerService {
 	
 	@Override
 	public Answer getAnswerById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		AnswerEntity entity = repository.findById(id).get();
+		Answer answer = entity.buildDomain();
+	
+	return answer;
 	}
 
 	@Override

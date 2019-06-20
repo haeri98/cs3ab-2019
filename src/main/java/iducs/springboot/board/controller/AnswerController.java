@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 import iducs.springboot.board.domain.Answer;
@@ -24,6 +25,7 @@ import iducs.springboot.board.repository.UserRepository;
 import iducs.springboot.board.service.AnswerService;
 import iducs.springboot.board.service.QuestionService;
 import iducs.springboot.board.service.UserService;
+import iducs.springboot.board.util.HttpSessionUtils;
 
 @Controller
 @RequestMapping("/questions/{questionId}/answers")
@@ -46,15 +48,15 @@ public class AnswerController {
 	
 	// 댓글 삭제하기
 	@DeleteMapping("/{answer_id}")
-	public String deleteAnswer(@PathVariable(value = "answer_id") Long answerId,HttpSession session, Model model) {
+	public String deleteAnswer(@PathVariable(value = "answer_id") Long answerId,
+			@PathVariable Long questionId, HttpSession session, Model model) {
 		//로그인 한 유저와 댓글단 유저가 일치하는지 확인은 안했음! ㅎㅎ
-//		User sessionUser = (User) session.getAttribute("user");
-		
+		//User sessionUser = (User) session.getAttribute("user");
+		System.out.println(answerId);
 		Answer answer = answerService.getAnswerById(answerId);
 		answerService.deleteAnswer(answer);
 		model.addAttribute(answer);
-		return String.format("redirect:/questions/%d", answer.getQuestion().getId());
-		
+		return String.format("redirect:/questions/%d", questionId);
 	}
 	
 	// 댓글 가져오기
@@ -70,16 +72,15 @@ public class AnswerController {
 		return "/answers/edit";
 		
 	}
-	
-	@PutMapping("/{answer_id}")
-	public String updateAnswer(@PathVariable(value = "answer_id") Long answerId,
-			@PathVariable(value = "questionId") Long questionId,String contents,HttpSession session) {
-		
+
+	@RequestMapping(value = "/{answer_id}", method = RequestMethod.POST)
+	public String updateQuestionById(@PathVariable(value = "answer_id") Long answerId,
+			@PathVariable(value = "questionId") Long questionId, Answer formAnswer,Model model, HttpSession session) {
 		Answer answer = answerService.getAnswerById(answerId);
-		answer.setContents(contents);
+		answer.setContents(formAnswer.getContents());
 		answerService.saveAnswer(answer);
+		model.addAttribute("answer", answer);
 		return String.format("redirect:/questions/%d", answer.getQuestion().getId());
 	}
-	
 
 }
