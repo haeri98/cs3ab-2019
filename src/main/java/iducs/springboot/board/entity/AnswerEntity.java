@@ -86,4 +86,3 @@ public class AnswerEntity {
 		return true;
 	}
 }
-

@@ -140,9 +140,9 @@
                                     <p class="date"><span th:text="${#temporals.format(answer.createTime, 'yy년 MM월 dd일 HH:mm')}"></span></p>
                                  </div>
                                  <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
+                                    <a th:href="@{'/questions/{id}/answers/{id1}'(id=${id}, id1=${answer.id})}" th:method="get" class="btn-reply text-uppercase">reply</a>
                                  </div>
-                                 <form th:action="@{'/answer/{id}'(id=${id})}" th:method="delete">
+                                 <form th:action="@{'/questions/{id}/answers/{id1}'(id=${id}, id1=${answer.id})}" th:method="delete">
                         				<button type="submit" class="genric-btn primary small"> 삭제</button>
                         			</form>
                               </div>

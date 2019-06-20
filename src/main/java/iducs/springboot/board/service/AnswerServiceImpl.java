@@ -34,15 +34,17 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 	@Override
-	public void updateAnswer(Answer question) {
-		// TODO Auto-generated method stub
-
+	public void updateAnswer(Answer answer) {
+		AnswerEntity entity = new AnswerEntity();
+		entity.buildEntity(answer);
+		repository.save(entity);
 	}
 
 	@Override
-	public void deleteAnswer(Answer question) {
-		// TODO Auto-generated method stub
-
+	public void deleteAnswer(Answer answer) {
+		AnswerEntity entity = new AnswerEntity();
+		entity.buildEntity(answer);
+		repository.delete(entity);
 	}
 
 }
