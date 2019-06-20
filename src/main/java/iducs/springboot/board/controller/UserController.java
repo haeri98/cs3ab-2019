@@ -35,6 +35,7 @@ public class UserController {
 		model.addAttribute("user", formUser);
 		return "redirect:/users";
 	}	
+	/*
 	@GetMapping("")
 	public String getAllUser(Model model, HttpSession session) {
 		User sessionUser = (User) session.getAttribute("user");
@@ -45,14 +46,15 @@ public class UserController {
 		return "/users/list";
 		}
 	}	
-	/* page + httpSession
-	 * @GetMapping("")
+	*/
+	@GetMapping("")
 	public String getUsers(Model model, HttpSession session, Long pageNo) { //@PathVariable(value = "pageNo") Long pageNo) {
-		System.out.println(pageNo);
+		if(pageNo == null)
+			pageNo = new Long(1);
 		model.addAttribute("users", userService.getUsers(pageNo));
 		return "/users/list";
 	}	
-	 */
+
 	@GetMapping("/{id}")
 	public String getUserById(@PathVariable(value = "id") Long id, Model model,  HttpSession session) {
 		User sessionUser = (User) session.getAttribute("user");

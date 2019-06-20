@@ -12,5 +12,4 @@ public interface UserRepository
 	UserEntity findByUserId(String userId);
 	List<UserEntity> findByNameOrderByIdAsc(String name);
 	List<UserEntity> findByCompany(String company);
-	// Page<UserEntity> findAll(Pageable pageable); 
 }

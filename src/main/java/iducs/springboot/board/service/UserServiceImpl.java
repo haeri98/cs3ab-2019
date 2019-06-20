@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import iducs.springboot.board.domain.User;
@@ -11,6 +14,7 @@ import iducs.springboot.board.entity.UserEntity;
 import iducs.springboot.board.exception.ResourceNotFoundException;
 import iducs.springboot.board.repository.UserRepository;
 
+/*
 @Service//("userService")
 public class UserServiceImpl implements UserService {
 
@@ -86,7 +90,8 @@ public class UserServiceImpl implements UserService {
 		repository.delete(entity);
 	}		
 }
-/*
+*/
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -126,7 +131,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> getUsers(Long pageNo) {
-		PageRequest pageRequest = PageRequest.of((int) (pageNo - 1), 3, new Sort(Sort.Direction.DESC, "id"));
+		PageRequest pageRequest = PageRequest.of((int) (pageNo - 1), 5, new Sort(Sort.Direction.DESC, "id"));
 		Page<UserEntity> entities = repository.findAll(pageRequest);
 		List<User> users = new ArrayList<User>();
 		for(UserEntity entity : entities) {
@@ -184,5 +189,3 @@ public class UserServiceImpl implements UserService {
 		repository.delete(entity);
 	}
 }
-
- */
