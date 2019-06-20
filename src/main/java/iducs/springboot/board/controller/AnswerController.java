@@ -60,7 +60,7 @@ public class AnswerController {
 	}
 	
 	// 댓글 가져오기
-	@GetMapping("/{answer_id}")
+	@GetMapping("/{answer_id}/edit")
 	public String getAnswer(@PathVariable(value = "answer_id") Long answerId,
 			@PathVariable(value = "questionId") Long questionId,Model model) {
 		
@@ -73,14 +73,14 @@ public class AnswerController {
 		
 	}
 
-	@RequestMapping(value = "/{answer_id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/{answer_id}/edit", method = RequestMethod.POST)
 	public String updateQuestionById(@PathVariable(value = "answer_id") Long answerId,
 			@PathVariable(value = "questionId") Long questionId, Answer formAnswer,Model model, HttpSession session) {
 		Answer answer = answerService.getAnswerById(answerId);
 		answer.setContents(formAnswer.getContents());
 		answerService.saveAnswer(answer);
 		model.addAttribute("answer", answer);
-		return String.format("redirect:/questions/%d", answer.getQuestion().getId());
+		return String.format("redirect:/questions/%d", questionId);
 	}
 
 }
